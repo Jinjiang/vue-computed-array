@@ -13,8 +13,9 @@ const vm = new Vue({
   computed: {
     result: getComputedArray(
       function () { return this.list },
-      v => { return { key: v.id, title: v.name }},
-      v => { return { id: v.key, name: v.title }}
+      v => { return { foo: { key: v.id, title: v.name }}},
+      v => { return { id: v.foo.key, name: v.foo.title }},
+      { foo: { key: 'id' }}
     )
   },
   methods: {

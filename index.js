@@ -59,11 +59,57 @@ function patch (src, dest, getter, setter) {
   })
 }
 
-export default function getComputedArray (arrayGetter, itemGetter, itemSetter) {
+const walk = (map, currentPath, bindings) => {
+  for (const key in map) {
+    const value = map[key]
+    if (typeof value === 'object') {
+      currentPath.push(key)
+      walk(value, currentPath, bindings)
+      currentPath.pop()
+    } else if (typeof value === 'string') {
+      bindings.push({
+        targetGetter: obj => currentPath.reduce((result, name) => {
+          if (result && result.hasOwnProperty(name)) {
+            return result[name]
+          }
+        }, obj),
+        key, value
+      })
+    }
+  }
+}
+
+const parseReactiveMap = (map) => {
+  if (!map) {
+    return v => v
+  }
+  const bindings = []
+  const currentPath = []
+  walk(map, currentPath, bindings)
+  return (src, dest) => {
+    bindings.forEach(({ targetGetter, key, value }) => {
+      const target = targetGetter(src)
+      if (target) {
+        Object.defineProperty(target, key, {
+          get () { return dest[value] },
+          set (v) { dest[value] = v }
+        })
+      }
+      return src
+    })
+  }
+}
+
+export default function getComputedArray (arrayGetter, itemGetter, itemSetter, reactiveMap) {
+  const parseItem = parseReactiveMap(reactiveMap)
   return {
     get: function () {
       const arr = arrayGetter.call(this)
-      const computedArray = arr.map(itemGetter)
+      const computedArray = arr.map(src => {
+        const dest = itemGetter(src)
+        parseItem(dest, src)
+        return dest
+      })
       patch(computedArray, arr, itemGetter, itemSetter)
       return computedArray
     },

@@ -11,7 +11,7 @@
         <h2>Computed Array</h2>
         <p><button @click="add">Add</button></p>
         <ul>
-          <li v-for="item in result">{{ item.key }} - {{ item.title }}</li>
+          <li v-for="item in result">{{ item.foo.key }} - {{ item.foo.title }}</li>
         </ul>
       </div>
       <div>
