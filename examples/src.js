@@ -11,12 +11,14 @@ const vm = new Vue({
     ]
   },
   computed: {
-    result: getComputedArray(
-      function () { return this.list },
-      v => { return { foo: { key: v.id, title: v.name }}},
-      v => { return { id: v.foo.key, name: v.foo.title }},
-      { foo: { key: 'id' }}
-    )
+    result: getComputedArray({
+      get () { return this.list },
+      set (v) { this.list = v }
+    }, {
+      get: v => { return { foo: { key: v.id, title: v.name }}},
+      set: v => { return { id: v.foo.key, name: v.foo.title }},
+      map: { foo: { key: 'id' }}
+    })
   },
   methods: {
     add () {
@@ -29,4 +31,12 @@ const vm = new Vue({
   }
 })
 
+
+// For testing.
 global.vm = vm
+
+// // You can test it like this.
+// this.vm.result[0].foo.key = 6
+// this.vm.list[1].id = 5
+// this.vm.result = [{ foo: { key: 10, title: 'X' }}]
+// this.vm.list = [{ id: 20, name: 'Z' }]

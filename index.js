@@ -67,8 +67,9 @@ const walk = (map, currentPath, bindings) => {
       walk(value, currentPath, bindings)
       currentPath.pop()
     } else if (typeof value === 'string') {
+      const path = currentPath.slice()
       bindings.push({
-        targetGetter: obj => currentPath.reduce((result, name) => {
+        targetGetter: obj => path.reduce((result, name) => {
           if (result && result.hasOwnProperty(name)) {
             return result[name]
           }
@@ -100,21 +101,21 @@ const parseReactiveMap = (map) => {
   }
 }
 
-export default function getComputedArray (arrayGetter, itemGetter, itemSetter, reactiveMap) {
-  const parseItem = parseReactiveMap(reactiveMap)
+export default function getComputedArray (array, item) {
+  const parseItem = parseReactiveMap(item.map)
   return {
     get: function () {
-      const arr = arrayGetter.call(this)
+      const arr = array.get.call(this)
       const computedArray = arr.map(src => {
-        const dest = itemGetter(src)
+        const dest = item.get(src)
         parseItem(dest, src)
         return dest
       })
-      patch(computedArray, arr, itemGetter, itemSetter)
+      patch(computedArray, arr, item.get, item.set)
       return computedArray
     },
     set: function (arr) {
-       return arr.map(itemSetter)
+      array.set.call(this, arr.map(item.set))
     }
   }
 }
