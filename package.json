@@ -1,6 +1,6 @@
 {
   "name": "vue-computed-array",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A JS library to create a computed array in Vue easier.",
   "main": "index.js",
   "files": [
