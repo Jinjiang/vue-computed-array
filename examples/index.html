@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Computed Array Demo</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Vue Computed Array Demo</h1>
+    <div style="display: grid; grid-template-columns: 1fr 1fr;">
+      <div>
+        <h2>Computed Array</h2>
+        <p><button @click="add">Add</button></p>
+        <ul>
+          <li v-for="item in result">{{ item.key }} - {{ item.title }}</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Original Array</h2>
+        <pre>{{ JSON.stringify(list, null, 2) }}</pre>
+      </div>
+    </div>
+  </div>
+  <script src="src.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "private": false,
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.5.1"
+  }
+}

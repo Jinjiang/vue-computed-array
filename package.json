@@ -1,0 +1,20 @@
+{
+  "name": "computed-array",
+  "version": "0.1.0",
+  "description": "A JS library to create a computed array in Vue easier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jinjiang/vue-computed-array.git"
+  },
+  "keywords": [],
+  "author": "Jinjiang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jinjiang/vue-computed-array/issues"
+  },
+  "homepage": "https://github.com/Jinjiang/vue-computed-array#readme"
+}
