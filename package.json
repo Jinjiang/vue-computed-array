@@ -1,8 +1,11 @@
 {
-  "name": "computed-array",
+  "name": "vue-computed-array",
   "version": "0.1.0",
   "description": "A JS library to create a computed array in Vue easier.",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
