@@ -4,7 +4,9 @@
   "description": "A JS library to create a computed array in Vue easier.",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
