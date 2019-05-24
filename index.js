@@ -41,7 +41,7 @@ function patch (src, dest, getter, setter) {
     return result
   })
   def(src, 'splice', function (...args) {
-    const result = arrayProto.splice.apply(src, ...args)
+    const result = arrayProto.splice.apply(src, args)
     const distArgs = args.map((value, index) => {
       if (index < 2) {
         return value
